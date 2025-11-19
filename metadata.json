@@ -1,0 +1,8 @@
+{
+  "name": "DemoDirector AI",
+  "description": "Create professional demo videos for your apps using AI-powered screen recording analysis, automatic captioning, and smart editing.",
+  "requestFramePermissions": [
+    "microphone",
+    "display-capture"
+  ]
+}
