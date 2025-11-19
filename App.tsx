@@ -7,12 +7,13 @@ import { Editor } from './components/Editor';
 import { Library } from './components/Library';
 import { AppStep, DemoProject } from './types';
 import { generateShotList, analyzeVideoAndGenerateTimeline, generateVoiceover } from './services/geminiService';
-import { Icons } from './constants';
+import { VideoCamera, Sparkles } from './constants';
 
 const App: React.FC = () => {
+  console.log("App component is rendering");
   const [step, setStep] = useState<AppStep>(AppStep.LANDING);
   const [savedProjects, setSavedProjects] = useState<DemoProject[]>([]);
-  
+
   // Load library from local storage
   useEffect(() => {
     const saved = localStorage.getItem('demo_projects');
@@ -69,8 +70,8 @@ const App: React.FC = () => {
       });
       setStep(AppStep.PLANNING);
     } catch (err) {
-        console.error(err);
-        setError("Failed to generate plan. Please check your API key or try again.");
+      console.error(err);
+      setError("Failed to generate plan. Please check your API key or try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -79,15 +80,15 @@ const App: React.FC = () => {
   const handleRecordingComplete = async (blob: Blob) => {
     setProject(prev => ({ ...prev, videoBlob: blob }));
     setStep(AppStep.PROCESSING);
-    
+
     try {
       // 2. Analyze Video
       setProcessingStatus("Analyzing video content (this may take 30s)...");
       // Pass description here so AI can infer value proposition
       const { timeline, subtitles, script } = await analyzeVideoAndGenerateTimeline(blob, project.url, project.description);
-      
+
       setProject(prev => ({ ...prev, timeline, subtitles, voiceoverScript: script }));
-      
+
       // 3. Generate Voiceover
       if (script) {
         setProcessingStatus("Generating AI voiceover...");
@@ -100,7 +101,7 @@ const App: React.FC = () => {
       console.error(err);
       setError("Failed to process video. The AI could not analyze the visual content. Please try recording again.");
       // Allow retry of processing or recording
-      setStep(AppStep.RECORDING); 
+      setStep(AppStep.RECORDING);
     }
   };
 
@@ -125,30 +126,29 @@ const App: React.FC = () => {
   };
 
   const handleRestart = () => {
-     setStep(AppStep.LANDING);
-     setProject({
-        id: '',
-        createdAt: 0,
-        url: '',
-        description: '',
-        shotList: [],
-        videoBlob: null,
-        videoUrl: null,
-        timeline: [],
-        subtitles: [],
-        voiceoverScript: '',
-        audioBlob: null
-     });
+    setStep(AppStep.LANDING);
+    setProject({
+      id: '',
+      createdAt: 0,
+      url: '',
+      description: '',
+      shotList: [],
+      videoBlob: null,
+      videoUrl: null,
+      timeline: [],
+      subtitles: [],
+      voiceoverScript: '',
+      audioBlob: null
+    });
   };
 
   // Render Logic
   if (step === AppStep.LANDING) {
     return (
-      <Landing 
-        onStart={handleStart} 
-        isGenerating={isProcessing} 
-        onOpenLibrary={() => setStep(AppStep.LIBRARY)}
-      />
+      <div className="text-white p-10">
+        <h1>Icon Test</h1>
+        <VideoCamera />
+      </div>
     );
   }
 
@@ -165,9 +165,9 @@ const App: React.FC = () => {
 
   if (step === AppStep.PLANNING) {
     return (
-      <ShotList 
-        shots={project.shotList} 
-        onReadyToRecord={() => setStep(AppStep.RECORDING)} 
+      <ShotList
+        shots={project.shotList}
+        onReadyToRecord={() => setStep(AppStep.RECORDING)}
         onSimulateRecording={handleRecordingComplete}
         url={project.url}
         description={project.description}
@@ -179,9 +179,9 @@ const App: React.FC = () => {
     return (
       <>
         {error && (
-            <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-500/90 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-                {error} <button className="underline ml-2" onClick={() => setError(null)}>Dismiss</button>
-            </div>
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-red-500/90 text-white px-6 py-3 rounded-lg shadow-lg z-50">
+            {error} <button className="underline ml-2" onClick={() => setError(null)}>Dismiss</button>
+          </div>
         )}
         <Recorder onRecordingComplete={handleRecordingComplete} />
       </>
@@ -195,7 +195,7 @@ const App: React.FC = () => {
           <div className="absolute inset-0 border-4 border-indigo-500/30 rounded-full"></div>
           <div className="absolute inset-0 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
           <div className="absolute inset-0 flex items-center justify-center">
-             <Icons.Sparkles />
+            <Sparkles />
           </div>
         </div>
         <h2 className="text-2xl font-bold mb-2">AI Director is Working</h2>
@@ -208,10 +208,10 @@ const App: React.FC = () => {
 
   if (step === AppStep.EDITING && project.videoBlob) {
     return (
-      <Editor 
-        videoBlob={project.videoBlob} 
+      <Editor
+        videoBlob={project.videoBlob}
         audioBlob={project.audioBlob}
-        timeline={project.timeline} 
+        timeline={project.timeline}
         subtitles={project.subtitles}
         voiceoverScript={project.voiceoverScript}
         onRestart={handleRestart}

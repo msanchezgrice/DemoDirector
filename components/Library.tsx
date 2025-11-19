@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { DemoProject } from '../types';
-import { Icons } from '../constants';
+import { Collection, VideoCamera, Play, Trash } from '../constants';
 
 interface LibraryProps {
   projects: DemoProject[];
@@ -16,14 +16,14 @@ export const Library: React.FC<LibraryProps> = ({ projects, onSelectProject, onD
       <div className="max-w-5xl mx-auto w-full">
         <div className="flex items-center justify-between mb-12">
           <div>
-            <button 
-              onClick={onBack} 
+            <button
+              onClick={onBack}
               className="text-indigo-400 hover:text-indigo-300 flex items-center gap-2 mb-2 text-sm font-medium transition-colors"
             >
               ← Back to Home
             </button>
             <h1 className="text-3xl font-bold flex items-center gap-3">
-              <Icons.Collection />
+              <Collection />
               Demo Library
             </h1>
           </div>
@@ -32,7 +32,7 @@ export const Library: React.FC<LibraryProps> = ({ projects, onSelectProject, onD
         {projects.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 border-2 border-dashed border-slate-800 rounded-2xl bg-slate-900/50">
             <div className="text-slate-600 mb-4 scale-150 opacity-50">
-              <Icons.VideoCamera />
+              <VideoCamera />
             </div>
             <h3 className="text-xl font-semibold text-slate-400 mb-2">No saved demos yet</h3>
             <p className="text-slate-500 max-w-md text-center mb-8">
@@ -48,16 +48,16 @@ export const Library: React.FC<LibraryProps> = ({ projects, onSelectProject, onD
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project) => (
-              <div 
-                key={project.id} 
+              <div
+                key={project.id}
                 className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:ring-2 hover:ring-indigo-500/50 transition-all group"
               >
                 {/* Placeholder for video thumbnail - in a real app we'd capture a frame */}
                 <div className="h-40 bg-slate-800 flex items-center justify-center relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60"></div>
-                    <Icons.Play />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60"></div>
+                  <Play />
                 </div>
-                
+
                 <div className="p-5">
                   <h3 className="font-bold text-lg mb-1 truncate text-white group-hover:text-indigo-300 transition-colors">
                     {project.description || "Untitled Project"}
@@ -65,14 +65,14 @@ export const Library: React.FC<LibraryProps> = ({ projects, onSelectProject, onD
                   <p className="text-slate-500 text-xs mb-4 font-mono truncate">
                     {project.url}
                   </p>
-                  
+
                   <div className="flex items-center gap-2 text-xs text-slate-400 mb-6">
-                     <span className="bg-slate-800 px-2 py-1 rounded">
-                        {project.timeline.length} events
-                     </span>
-                     <span className="bg-slate-800 px-2 py-1 rounded">
-                        {new Date(project.createdAt).toLocaleDateString()}
-                     </span>
+                    <span className="bg-slate-800 px-2 py-1 rounded">
+                      {project.timeline.length} events
+                    </span>
+                    <span className="bg-slate-800 px-2 py-1 rounded">
+                      {new Date(project.createdAt).toLocaleDateString()}
+                    </span>
                   </div>
 
                   <div className="flex gap-2">
@@ -89,7 +89,7 @@ export const Library: React.FC<LibraryProps> = ({ projects, onSelectProject, onD
                       }}
                       className="px-3 bg-slate-800 hover:bg-red-900/50 hover:text-red-400 text-slate-400 rounded-lg transition-colors"
                     >
-                      <Icons.Trash />
+                      <Trash />
                     </button>
                   </div>
                 </div>

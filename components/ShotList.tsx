@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Shot, BrowserAction } from '../types';
-import { Icons } from '../constants';
+import { Robot, Sparkles, Code, Download, FileJson, VideoCamera } from '../constants';
 import { generateBrowserActions } from '../services/geminiService';
 import { SimulationView } from './SimulationView';
 
@@ -61,13 +61,13 @@ export const ShotList: React.FC<ShotListProps> = ({ shots, onReadyToRecord, onSi
                     onClick={() => setActiveTab('agent')}
                     className={`px-6 py-2 rounded-full font-medium transition-colors flex items-center gap-2 ${activeTab === 'agent' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'}`}
                 >
-                    <Icons.Robot /> AI Agent Blueprint
+                    <Robot /> AI Agent Blueprint
                 </button>
                 <button
                     onClick={() => setActiveTab('plan')}
                     className={`px-6 py-2 rounded-full font-medium transition-colors flex items-center gap-2 ${activeTab === 'plan' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400'}`}
                 >
-                    <Icons.Sparkles /> Manual Plan
+                    <Sparkles /> Manual Plan
                 </button>
             </div>
 
@@ -78,7 +78,7 @@ export const ShotList: React.FC<ShotListProps> = ({ shots, onReadyToRecord, onSi
                         <div className="flex justify-between items-start mb-6">
                             <div>
                                 <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                                    <Icons.Code />
+                                    <Code />
                                     Automation Blueprint (Server-Side)
                                 </h2>
                                 <p className="text-slate-400 mt-2 max-w-2xl">
@@ -90,7 +90,7 @@ export const ShotList: React.FC<ShotListProps> = ({ shots, onReadyToRecord, onSi
 
                         {isGeneratingActions ? (
                             <div className="py-20 flex flex-col items-center text-indigo-400 animate-pulse">
-                                <Icons.Sparkles />
+                                <Sparkles />
                                 <p className="mt-4">Analyzing site structure & generating selectors...</p>
                             </div>
                         ) : (
@@ -127,7 +127,7 @@ export const ShotList: React.FC<ShotListProps> = ({ shots, onReadyToRecord, onSi
                                             onClick={downloadBlueprint}
                                             className="text-xs bg-slate-800 hover:bg-slate-700 text-indigo-400 px-3 py-1.5 rounded flex items-center gap-1 transition-colors"
                                         >
-                                            <Icons.Download /> Download .JSON
+                                            <Download /> Download .JSON
                                         </button>
                                     </div>
                                     <div className="bg-slate-950 rounded-xl border border-slate-800 p-4 flex-1 overflow-hidden relative font-mono text-xs text-green-400">
@@ -145,21 +145,21 @@ export const ShotList: React.FC<ShotListProps> = ({ shots, onReadyToRecord, onSi
                                             onClick={downloadBlueprint}
                                             className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-indigo-900/20"
                                         >
-                                            <Icons.FileJson />
+                                            <FileJson />
                                             Download Blueprint
                                         </button>
                                         <button
                                             onClick={() => setShowSimulation(true)}
                                             className="flex-1 bg-red-600 hover:bg-red-500 text-white font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-red-900/20"
                                         >
-                                            <Icons.VideoCamera />
+                                            <VideoCamera />
                                             Simulate & Record
                                         </button>
                                         <button
                                             onClick={onReadyToRecord}
                                             className="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2"
                                         >
-                                            <Icons.VideoCamera />
+                                            <VideoCamera />
                                             Manual Record Instead
                                         </button>
                                     </div>
@@ -170,7 +170,7 @@ export const ShotList: React.FC<ShotListProps> = ({ shots, onReadyToRecord, onSi
                 ) : (
                     <div>
                         <h2 className="text-2xl font-bold mb-4 text-white flex items-center gap-2">
-                            <Icons.Sparkles />
+                            <Sparkles />
                             Manual Director's Plan
                         </h2>
                         <p className="text-slate-400 mb-6">
@@ -197,7 +197,7 @@ export const ShotList: React.FC<ShotListProps> = ({ shots, onReadyToRecord, onSi
                             className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition-all flex items-center justify-center gap-2 shadow-lg shadow-red-900/20"
                         >
                             I'm Ready to Record Manually
-                            <Icons.VideoCamera />
+                            <VideoCamera />
                         </button>
                     </div>
                 )}
